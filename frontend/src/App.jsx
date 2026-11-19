@@ -65,7 +65,7 @@ export default function App() {
       if (backendAvailableRef.current) {
         try {
           const ctrl = new AbortController();
-          const t = setTimeout(() => ctrl.abort(), 2500);
+          const t = setTimeout(() => ctrl.abort(), 15000);
           const res = await fetch(`${API_BASE}/api/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

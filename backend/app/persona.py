@@ -129,10 +129,11 @@ def is_about_rahul(query: str) -> bool:
     """Detects whether query is inquiring about Rahul Raj personal/professional profile."""
     q = query.lower().strip()
     keywords = [
-        "you", "your", "who are you", "yourself", "life story", "superpower", 
-        "grow in", "growth areas", "misconception", "coworker", "boundaries", 
-        "limits", "iit", "dharwad", "infosys", "bp lng", "british petroleum", 
-        "danske", "experience", "resume", "projects", "hire", "fit for"
+        "who are you", "yourself", "life story", "superpower",
+        "grow in", "growth areas", "misconception", "coworker", "boundaries",
+        "limits", "iit", "dharwad", "infosys", "bp lng", "british petroleum",
+        "danske", "experience", "resume", "projects", "hire", "fit for",
+        "your background", "your career", "your skills", "your education"
     ]
     return any(k in q for k in keywords)
 
