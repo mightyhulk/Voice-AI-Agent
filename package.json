@@ -1,0 +1,19 @@
+{
+  "name": "10000xyz",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "--- title: Rahul Raj - AI Voice Avatar emoji: 🎙️ colorFrom: indigo colorTo: pink sdk: docker app_port: 7860 pinned: false ---",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer-core": "^24.43.1"
+  }
+}
