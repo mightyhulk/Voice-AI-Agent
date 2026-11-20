@@ -1,86 +1,58 @@
----
-title: Rahul Raj - AI Voice Avatar
-emoji: 🎙️
-colorFrom: indigo
-colorTo: pink
-sdk: docker
-app_port: 7860
-pinned: false
----
+# Rahul Raj — AI Voice Assistant
 
-# 🎙️ Rahul Raj — AI Voice Avatar
+An interactive voice and text AI assistant built with **Python (FastAPI)** and **React (Vite)** that answers interview and personal questions as **Rahul Raj** (AI Engineer · IIT Dharwad · Infosys) as well as open-domain questions across science, coding, math, and general knowledge.
 
-An interactive, high-fidelity AI Voice Avatar that speaks, listens, and responds authentically as **Rahul Raj** (AI Engineer | Generative AI & Agentic Systems).
-
-Live Deployed Web App: **[https://rahulraj56-rahul-voice-bot.hf.space](https://rahulraj56-rahul-voice-bot.hf.space)**  
-Hugging Face Space: **[https://huggingface.co/spaces/rahulraj56/rahul-voice-bot](https://huggingface.co/spaces/rahulraj56/rahul-voice-bot)**
+- **Live Deployed Web App**: [https://voice-ai-agent-eta.vercel.app/](https://voice-ai-agent-eta.vercel.app/)
+- **GitHub Repository**: [https://github.com/mightyhulk/Voice-AI-Agent](https://github.com/mightyhulk/Voice-AI-Agent)
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-1. **Natural Voice-to-Voice Interaction**:
-   - **Speech-to-Text (Voice In)**: Real-time browser speech recognition via native Web Speech API with zero latency and high accuracy.
-   - **Text-to-Speech (Voice Out)**: High-fidelity Microsoft Edge Neural Voice (`en-IN-PrabhatNeural` for Rahul's natural voice, plus US and UK accents) with animated audio waveform visualizers.
-   - **Browser Voice Fallback**: Embedded Web Speech Synthesis fallback ensuring speech plays in any environment.
+1. **Mode Symmetry (Voice In → Voice Out, Text In → Text Out)**
+   - **Voice Mode**: Tap the microphone and speak (Web Speech API with silence auto-submit and live transcript). The backend generates a concise conversational reply and speaks it aloud using Microsoft Edge neural TTS (`en-IN-PrabhatNeural` via `edge-tts`), with browser SpeechSynthesis fallback.
+   - **Text Mode**: Type a question or click a suggested prompt to receive a formatted Markdown response (with code blocks, `Listen`, and `Copy` actions) without auto-playing audio.
 
-2. **Authentic Candidate Persona**:
-   - Accurately captures Rahul's background as an **IIT Dharwad** Computer Science graduate and **Infosys** AI Engineer.
-   - Pre-configured, verified answers for the 5 core interview questions plus dynamic generation for arbitrary technical, project, or general queries.
-   - Resilient multi-turn conversation memory.
+2. **Authentic Persona + General Knowledge**
+   - Answers personal and interview questions in first person as Rahul Raj (IIT Dharwad, Infosys — BP LNG & Danske Bank, projects, growth areas, and engineering philosophy).
+   - Answers any general-knowledge, coding, math, or world question directly without forcing personal context, and stays in role against prompt-injection attempts.
 
-3. **1-Click Interview Question Chips**:
-   - Immediate one-tap access to the 5 evaluation questions:
-     1. *What should we know about your life story in a few sentences?*
-     2. *What's your #1 superpower?*
-     3. *What are the top 3 areas you'd like to grow in?*
-     4. *What misconception do your coworkers have about you?*
-     5. *How do you push your boundaries and limits?*
-
-4. **Zero-Friction Access**:
-   - **No login, no coding knowledge, and no API key required** from users.
-   - Responsive UI that works across desktop and mobile browsers.
-   - Fallback text chat input for quiet environments.
+3. **Zero-Friction Access for Non-Technical Users**
+   - No login, no installation, and **no API key required** from the user.
+   - The `GOOGLE_API_KEY` is stored server-side in Vercel Environment Variables and never exposed in the client JavaScript bundle.
 
 ---
 
-## 🏗️ Architecture & Technology Stack
+## Architecture & Technology Stack
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Frontend** | React 18, Vite, Lucide Icons | Responsive glassmorphism interface, Web Speech API hook, real-time waveform visualizer |
-| **Backend** | Python 3.12, FastAPI, Uvicorn | Async REST endpoints, audio streaming, dialogue state management |
-| **Intelligence / LLM** | Google Gemini 2.5 Flash / 2.0 Flash (Free API) | Concise, voice-ready first-person response generation |
-| **Voice Synthesis (TTS)** | `edge-tts` (Neural Voices) | Generates crisp, realistic speech streaming with zero API key cost |
-| **Deployment** | Hugging Face Spaces (Docker) | Free, 24/7 HTTPS cloud hosting |
+| **Frontend** | React 18, Vite, `react-markdown`, Lucide Icons | Minimal single-column chat UI, Web Speech API hook, audio playback |
+| **Backend** | Python 3.12, FastAPI, Uvicorn | Async REST API (`/api/chat`, `/api/tts`, `/api/health`, `/api/profile`) |
+| **LLM** | Google Gemini API (`gemini-3.1-flash-lite` + fallback chain) | Server-side conversational & open-domain generation |
+| **Voice Synthesis (TTS)** | `edge-tts` (`en-IN-PrabhatNeural`) | Neural MP3 speech synthesis streamed as base64 / audio |
+| **Deployment** | Vercel (Static CDN + Python Serverless Functions) | Global CDN for React UI and serverless `/api/*` via `vercel.json` |
 
 ---
 
-## 💬 The 5 Core Interview Answers
+## Example Interview Questions Included on Home Screen
 
-### 1. Life Story
-> "I'm an AI Engineer and Computer Science graduate from IIT Dharwad. Over the past couple of years at Infosys and startup environments, I've specialized in architecting and deploying production-grade generative AI and agentic systems for global giants like British Petroleum and Danske Bank. My journey is driven by a deep conviction to turn cutting-edge model research into dependable, real-world autonomous software."
+1. *What should we know about your life story in a few sentences?*
+2. *What's your #1 superpower?*
+3. *What are the top 3 areas you'd like to grow in?*
+4. *What misconception do your coworkers have about you?*
+5. *How do you push your boundaries and limits?*
 
-### 2. #1 Superpower
-> "My number one superpower is execution velocity in transforming novel AI paradigms into robust production systems. Whether it is orchestrating multi-agent workflows with LangGraph, wiring MCP tools, or fine-tuning 8B models on tight compute, I can rapidly build, test, and ship end-to-end architectures that perform reliably under strict enterprise constraints."
-
-### 3. Top 3 Growth Areas
-> "The top three areas I am focused on growing in are: first, scaling distributed multi-agent swarm architectures with asynchronous self-healing coordination; second, mastering frontier model post-training and alignment, especially Direct Preference Optimization and RLHF; and third, advancing strategic product leadership to bridge raw AI capabilities directly into high-leverage business value."
-
-### 4. Coworker Misconception
-> "Because I am often immersed in low-level microservices, fine-tuning scripts, and vector pipelines, coworkers sometimes assume I am purely a backend systems engineer. In reality, I care intensely about user experience, product ergonomics, and ensuring that complex AI feels intuitive, delightful, and human to interact with."
-
-### 5. Pushing Boundaries and Limits
-> "I push my boundaries by actively embracing uncharted territory where standard playbooks do not exist. That means building production agentic systems for enterprise clients before industry best practices were established, fine-tuning large language models under strict 4-bit memory constraints, and shipping working prototypes within hours of a new framework or model drop."
+*(Plus general-knowledge starter prompts and free-form voice or text questions.)*
 
 ---
 
-## 🚀 Local Development Setup
+## Local Development Setup
 
-### 1. Clone & Environment
+### 1. Clone the Repository
 ```bash
-git clone <repo-url>
-cd 10000xyz
+git clone https://github.com/mightyhulk/Voice-AI-Agent.git
+cd Voice-AI-Agent
 ```
 
 ### 2. Backend Setup
@@ -90,7 +62,12 @@ source .venv/bin/activate
 pip install -r backend/requirements.txt
 ```
 
-### 3. Frontend Build
+Create `backend/.env` with your Gemini API key:
+```env
+GOOGLE_API_KEY=your_gemini_api_key_here
+```
+
+### 3. Build Frontend
 ```bash
 cd frontend
 npm install
@@ -103,15 +80,21 @@ cd ..
 export PYTHONPATH=backend
 uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
-Open [http://localhost:8000](http://localhost:8000) to use the voice bot.
+Open [http://localhost:8000](http://localhost:8000) in your browser.
 
 ---
 
-## 🧪 Testing
+## Testing
 
-Run the full end-to-end test suite:
+### Backend & Integration Suite (14 tests)
 ```bash
 pytest tests/test_e2e.py -v
 ```
-All 14 tests cover health checks, profile information, all 5 core questions, dynamic query generation, prompt injection resistance, empty input handling, voice disable toggle, and static asset delivery.
+Covers `/api/health`, `/api/profile`, all 5 core interview questions, dynamic LLM responses, empty-input validation (`400`), prompt-injection handling, `voice_mode=False`, `/api/tts` MP3 streaming, and static asset serving.
 
+### Live Deployment & Voice Flow Tests
+```bash
+node tests/test_vercel_live.js
+node tests/test_mic_mock.js
+```
+Verifies live responses on `https://voice-ai-agent-eta.vercel.app/`, zero console errors, no exposed API key in client JS, `New chat` reset, and mocked SpeechRecognition voice-in/voice-out flow.
